@@ -30,11 +30,13 @@ namespace RestConsumptionConsoleUI
 
             Console.WriteLine();
 
-            consumer.Post(new Item(6, "myItemName", "Low", 50));
+            Console.WriteLine(await consumer.Post(new Item(6, "myItemName", "Low", 50)));
 
-            consumer.Put(4, new Item(4, "xName", "asdf", 20));
+            Console.WriteLine();
 
-            consumer.Delete(4);
+            //consumer.Put(4, new Item(4, "xName", "asdf", 20));
+
+            //consumer.Delete(4);
         }
     }
 }

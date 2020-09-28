@@ -42,7 +42,19 @@ namespace RestConsumptionConsoleUI
 
         public async Task<string> Post(Item item)
         {
-            throw new NotImplementedException();
+            using (HttpClient client = new HttpClient())
+            {
+                string json = JsonConvert.SerializeObject(item);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(new Uri(URI), content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return "Item added.";
+                }
+                throw new Exception($"Something went wrong during Post(Item item). " +
+                                    $"Statuscode: {response.StatusCode}");
+            }
         }
 
         public async Task<string> Put(int id, Item item)
