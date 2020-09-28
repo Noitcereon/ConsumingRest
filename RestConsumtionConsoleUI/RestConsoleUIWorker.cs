@@ -26,7 +26,7 @@ namespace RestConsumptionConsoleUI
 
             Console.WriteLine();
 
-            Item oneItem = consumer.GetOne(2);
+            Item oneItem = await consumer.GetOne(2);
 
             Console.WriteLine();
 
