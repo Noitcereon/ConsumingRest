@@ -27,6 +27,7 @@ namespace RestConsumptionConsoleUI
             Console.WriteLine();
 
             Item oneItem = await consumer.GetOne(2);
+            Console.WriteLine(oneItem);
 
             Console.WriteLine();
 
@@ -34,9 +35,11 @@ namespace RestConsumptionConsoleUI
 
             Console.WriteLine();
 
-            //consumer.Put(4, new Item(4, "xName", "asdf", 20));
+            Console.WriteLine(await consumer.Put(4, new Item(4, "xName", "Unspecificed", 20)));
 
-            //consumer.Delete(4);
+            Console.WriteLine();
+
+            Console.WriteLine(await consumer.Delete(6));
         }
     }
 }

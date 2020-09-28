@@ -50,7 +50,7 @@ namespace RestConsumptionConsoleUI
 
                 if (response.IsSuccessStatusCode)
                 {
-                    return "Item added.";
+                    return $"Item with id {item.Id} added.";
                 }
                 throw new Exception($"Something went wrong during Post(Item item). " +
                                     $"Statuscode: {response.StatusCode}");
@@ -59,13 +59,30 @@ namespace RestConsumptionConsoleUI
 
         public async Task<string> Put(int id, Item item)
         {
-            throw new NotImplementedException();
+            using (HttpClient client = new HttpClient())
+            {
+                string json = JsonConvert.SerializeObject(item);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PutAsync(URI + id, content);
+                if (response.IsSuccessStatusCode)
+                {
+                    return $"Updated item with id {id}.";
+                }
+                throw new Exception($"Status code: {response.StatusCode}");
+            }
         }
 
         public async Task<string> Delete(int id)
         {
-            throw new NotImplementedException();
-            return $"Deleted item nr. {id}";
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response = await client.DeleteAsync(URI + id);
+                if (response.IsSuccessStatusCode)
+                {
+                    return $"Deleted item nr. {id}";
+                }
+                throw new Exception($"Status code: {response.StatusCode}");
+            }
         }
     }
 }
