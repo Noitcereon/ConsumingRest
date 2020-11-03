@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using PracticeRestLib;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace RestConsumptionConsoleUI
 {
@@ -18,6 +19,8 @@ namespace RestConsumptionConsoleUI
             using (HttpClient client = new HttpClient())
             {
                 string content = await client.GetStringAsync(new Uri(URI));
+                // JsonConvert is a part of the Newtonsoft.
+                // JsonSerializer is part of in-build json tool.
                 IList<Item> items = JsonConvert.DeserializeObject<IList<Item>>(content);
 
                 return items;
@@ -32,6 +35,8 @@ namespace RestConsumptionConsoleUI
 
                 if (response.IsSuccessStatusCode)
                 {
+                    // JsonConvert is a part of the Newtonsoft.
+                    // JsonSerializer is part of in-build json tool.
                     Item item = JsonConvert.DeserializeObject<Item>(jsonContent);
                     return item;
                 }
@@ -44,6 +49,8 @@ namespace RestConsumptionConsoleUI
         {
             using (HttpClient client = new HttpClient())
             {
+                // JsonConvert is a part of the Newtonsoft.
+                // JsonSerializer is part of in-build json tool.
                 string json = JsonConvert.SerializeObject(item);
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(new Uri(URI), content);
